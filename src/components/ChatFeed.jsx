@@ -30,7 +30,7 @@ const renderReadReceipts = (message, isMyMessage) => {
         return keys.map((key, index) => {
             const message = messages[key];
             //find the last message
-            const lastMessageKey = index === 0 ? null : keys [index-1];
+            const lastMessageKey = index === 0 ? null : keys[index-1];
             const isMyMessage = userName === message.sender.username;
        
             return (
@@ -54,7 +54,6 @@ const renderReadReceipts = (message, isMyMessage) => {
 
 //loading chat
 if(!chat) return 'Loading...'; <div />;
-
     return (
         <div className = "chat-feed">
             <div className= "chat-title-c">
@@ -67,7 +66,7 @@ if(!chat) return 'Loading...'; <div />;
             </div>
 
             {renderMessages()}
-            <div style = {{height: '100px'}} />
+            <div style ={{height: '100px'}} />
             <div className= "message-form-container">
                 <MessageForm {...props} chatId={activeChat} />
             </div>
