@@ -3,7 +3,7 @@ import React, { Component } from "react";
 // import Sidebar from "../elements/sidebar";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
-import LoginView from "../pages/home/LoginView";
+import LoginView from "../pages/LoginView";
 
 export default class Login extends Component {
   state = {

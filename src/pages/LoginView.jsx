@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "../components/LoginForm";
 import styled from "styled-components";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 
@@ -21,14 +21,11 @@ const LoginView = () => {
               className="mr-4"
               variant="primary"
               type="submit"
-              href="/register">
-            
+              href="/register"
+            >
               Sign Up
             </Button>
-            <Button
-              variant="outline-secondary"
-              type="submit"
-              href="/login">
+            <Button variant="outline-secondary" type="submit" href="/login">
               Login
             </Button>
           </Nav>

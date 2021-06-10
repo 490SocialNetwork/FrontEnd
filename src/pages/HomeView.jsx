@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import PageLayout from "../../components/PageLayout";
-import UserPosts from "../../components/UserPosts";
+import PageLayout from "../components/PageLayout";
+import UserPosts from "../components/UserPosts";
 import styled from "styled-components";
-import getPosts from "../../api/getPosts";
+import getPosts from "../api/getPosts";
 import { Button, Modal, Form } from "react-bootstrap";
 
 const HomeView = ({ admin }) => {

@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import LoginView from "./pages/home/LoginView";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import LoginView from "./pages/LoginView";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import HomeView from "./pages/home/HomeView";
+import HomeView from "./pages/HomeView";
 import Register from "./components/Register";
 import Login from "./components/login";
-
+import ChatView from "./pages/ChatView";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,10 +25,13 @@ ReactDOM.render(
           <HomeView />
         </Route>
         <Route path="/register">
-          <Register/>
+          <Register />
         </Route>
         <Route path="/admin">
           <HomeView admin={true} />
+        </Route>
+        <Route path="/chat">
+          <ChatView />
         </Route>
       </Switch>
     </Router>
