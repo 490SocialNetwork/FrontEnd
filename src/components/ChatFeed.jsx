@@ -4,9 +4,9 @@ import TheirMessage from './TheirMessage';
 
 
 const ChatFeed = (props) => {
-    const {chats, activeChat, userName, messages} = props;
+    const { chats, activeChat, userName, messages } = props;
     //spec. active chats only
-    const chat = chats && chats [activeChat];
+    const chat = chats && chats[activeChat];
     
 const renderReadReceipts = (message, isMyMessage) => {
    return chat.people.map((person,index) => person.last.read ===message.id && (
@@ -15,7 +15,7 @@ const renderReadReceipts = (message, isMyMessage) => {
             className="read-receipt"
             style={{
                 float: isMyMessage ? 'right' : 'left',
-                backgroundImage: `url(${message?.sender?.avatar})`
+                backgroundImage: person.person.avatar && `url(${person.person.avatar})`,
             }}
         />
     ))
@@ -25,19 +25,18 @@ const renderReadReceipts = (message, isMyMessage) => {
     const renderMessages = () => {
         //fetch messages
         const keys = Object.keys(messages);
-        console.log(keys);
+        
 
         return keys.map((key, index) => {
             const message = messages[key];
             //find the last message
-            const lastMessageKey = index === 0 ? null : keys [index-1];
+            const lastMessageKey = index === 0 ? null : keys[index-1];
             const isMyMessage = userName === message.sender.username;
        
             return (
-                <div key = {'msg_${index}'} style= {{width: '100%'}}>
+                <div key = {`msg_${index}`} style= {{width: '100%'}}>
                     <div className="message-block">
-                        {
-                            isMyMessage
+                        {isMyMessage
                             //then render if myMessge
                             ? <MyMessage message={message} />
                             // if not myMessage
@@ -48,14 +47,13 @@ const renderReadReceipts = (message, isMyMessage) => {
                                 {renderReadReceipts(message, isMyMessage)}
                             </div>
                 </div>
-            )
-        })
-    }
+            );
+        });
+    };
 
 
 //loading chat
-if(!chat) return 'Loading...';
-
+if(!chat) return 'Loading...'; <div />;
     return (
         <div className = "chat-feed">
             <div className= "chat-title-c">
@@ -68,7 +66,7 @@ if(!chat) return 'Loading...';
             </div>
 
             {renderMessages()}
-            <div style = {{height: '100px'}} />
+            <div style ={{height: '100px'}} />
             <div className= "message-form-container">
                 <MessageForm {...props} chatId={activeChat} />
             </div>
