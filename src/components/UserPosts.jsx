@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import ReplyCard from "./ReplyCard";
+import getComments from "../api/getComments";
 
-const UserPosts = ({ user, text, replies, index, userReply }) => {
+const UserPosts = ({ userid, message_txt, replies, index, userReply }) => {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState("");
+  const [allReplies, setAllReplies] = useState([]);
   const handleCancel = () => {
     setIsReplying(false);
     setReply("");
@@ -13,16 +15,20 @@ const UserPosts = ({ user, text, replies, index, userReply }) => {
   const handleReply = () => {
     userReply(index, {
       text: reply,
-      user: { name: localStorage.getItem("username") },
+      user: userid,
     });
     setIsReplying(false);
     setReply("");
   };
+  const getReplies = async () => {
+    const allUsers = await getComments();
+    setAllReplies(allUsers || []);
+  };
   return (
     <Wrapper>
       <MainCont>
-        <UserName>{user.name}</UserName>
-        <Text>{text}</Text>
+        <UserName>{userid}</UserName>
+        <Text>{message_txt}</Text>
       </MainCont>
       {!isReplying ? (
         <InteractCont>
@@ -53,7 +59,7 @@ const UserPosts = ({ user, text, replies, index, userReply }) => {
         </Form.Group>
       )}
       <ReplyCont>
-        {replies.map((info) => (
+        {allReplies.map((info) => (
           <ReplyCard {...info} />
         ))}
       </ReplyCont>

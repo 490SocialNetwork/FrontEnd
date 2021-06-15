@@ -1,8 +1,8 @@
-// REPLACE THIS WITH THE API CALL
-async function getPosts() {
+async function getComments() {
   try {
     const res = await fetch(
-      `https://afternoon-hamlet-30447.herokuapp.com/api/posts`,
+      `https://afternoon-hamlet-30447.herokuapp.com/api/comments
+        `,
       {
         method: "GET",
       }
@@ -15,4 +15,4 @@ async function getPosts() {
   }
 }
 
-export default getPosts;
+export default getComments;

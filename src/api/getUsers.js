@@ -1,8 +1,9 @@
 // REPLACE THIS WITH THE API CALL
-async function getPosts() {
+async function getUsers() {
   try {
     const res = await fetch(
-      `https://afternoon-hamlet-30447.herokuapp.com/api/posts`,
+      `https://afternoon-hamlet-30447.herokuapp.com/api/user
+        `,
       {
         method: "GET",
       }
@@ -15,4 +16,4 @@ async function getPosts() {
   }
 }
 
-export default getPosts;
+export default getUsers;

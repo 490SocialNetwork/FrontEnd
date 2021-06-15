@@ -4,31 +4,13 @@ import UserPosts from "../components/UserPosts";
 import styled from "styled-components";
 import getPosts from "../api/getPosts";
 import { Button, Modal, Form } from "react-bootstrap";
+import createPost from "../api/createPost";
+import getUsers from "../api/getUsers";
 
 const HomeView = ({ admin }) => {
-  const mockData = [
-    {
-      user: { name: "Tom Willson" },
-      text: "Lorem Ipsum is simply dummy text of thy of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
-      replies: [
-        {
-          user: { name: "Bill Bob" },
-          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem",
-        },
-      ],
-    },
-    {
-      user: { name: "Tom Willson" },
-      text: "Lorem Ipsum is simply dummy text of thy of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
-      replies: [
-        {
-          user: { name: "Bill Bob" },
-          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem",
-        },
-      ],
-    },
-  ];
-  const [posts, setPosts] = useState(mockData);
+  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
+
   const [newPost, setNewPost] = useState("");
   const [showPostModal, setShowPostModal] = useState(false);
 
@@ -41,7 +23,7 @@ const HomeView = ({ admin }) => {
     setNewPost("");
     setShowPostModal(false);
   };
-  const handleAddPost = () => {
+  const handleAddPost = async () => {
     const tempObj = [...posts];
     tempObj.unshift({
       text: newPost,
@@ -50,12 +32,24 @@ const HomeView = ({ admin }) => {
     });
     setPosts(tempObj);
     handleHide();
-    //ADD CREATE POST API HERE
+    await createPost({
+      message_txt: newPost,
+      userid: "courtneyh",
+    });
+  };
+  const getAllPosts = async () => {
+    const allPosts = await getPosts();
+    setPosts(allPosts || []);
+    console.log(allPosts);
+  };
+  const getAllUsers = async () => {
+    const allUsers = await getUsers();
+    setUsers(allUsers || []);
+    console.log(allUsers);
   };
   useEffect(() => {
-    // YOUR API CALL IS HERE UNCOMMENT LINE 29 TO TEST IF IT WORKS
-    const allPosts = getPosts();
-    //setPosts(allPosts)
+    getAllPosts();
+    getAllUsers();
   }, []);
   return (
     <PageLayout admin={admin}>
