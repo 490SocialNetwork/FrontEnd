@@ -3,34 +3,35 @@ import { Form, Button } from "react-bootstrap";
 import createUser from "../api/createUser";
 import authenticate from "../api/authenticate";
 
-function LoginForm({ isCreate }) {
-  const [email, setEmail] = useState("");
+function LoginForm({}) {
+  const [isCreate, setIsCreate] = useState(false);
+
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState("");
-  const handleSubmit = (e) => {    
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (isCreate) {
-      
       //const CreateRes = createUser();
       setError("Create Account Failed");
     } else {
-      //const loginRes = authenticate();
+      const loginRes = authenticate(username);
       setError("Invalid credentials");
     }
-    setEmail("");
+    setUsername("");
     setPassword("");
   };
   return (
     <Form onSubmit={handleSubmit}>
       <h1>{isCreate ? "Create Account" : "Login"}</h1>
       <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>Username</Form.Label>
         <Form.Control
-          type="email"
-          placeholder="Enter email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Enter Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </Form.Group>
 
@@ -43,22 +44,21 @@ function LoginForm({ isCreate }) {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Group>
-      <Form.Group controlId="formBasicCheckbox">
-        <Form.Check
-          type="checkbox"
-          label="Admin"
-          value={isAdmin}
-          onChange={(e) => setIsAdmin(e.target.value)}
-        />
-      </Form.Group>
       <Button
         variant="primary"
         type="submit"
-        disabled={email.length < 3 && password < 3}
+        disabled={username.length < 3 && password < 3}
       >
         Submit
       </Button>
       <p className="mt-2 text-danger">{error}</p>
+      <Button
+        variant="primary"
+        size="sm"
+        onClick={() => setIsCreate((prev) => !prev)}
+      >
+        {isCreate ? "Login" : "Create account"}
+      </Button>
     </Form>
   );
 }

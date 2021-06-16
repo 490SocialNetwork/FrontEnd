@@ -4,13 +4,6 @@ import styled from "styled-components";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 
 const LoginView = () => {
-  const [isCreate, setIsCreate] = useState(false);
-
-  const handleLogin = (info) => {
-    if (info === "LOGIN") setIsCreate(false);
-    else if (info === "SIGNUP") setIsCreate(true);
-  };
-
   return (
     <Layout>
       <Navbar bg="light" variant="light">
@@ -31,7 +24,7 @@ const LoginView = () => {
           </Nav>
         </Container>
       </Navbar>
-      <h1>Welcome</h1>
+      <LoginForm />
     </Layout>
   );
 };

@@ -10,6 +10,9 @@ import getUsers from "../api/getUsers";
 const HomeView = ({ admin }) => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [shownUsers, setshownUsers] = useState([]);
+
+  const [searchBar, setsearchBar] = useState("");
 
   const [newPost, setNewPost] = useState("");
   const [showPostModal, setShowPostModal] = useState(false);
@@ -52,7 +55,7 @@ const HomeView = ({ admin }) => {
     getAllUsers();
   }, []);
   return (
-    <PageLayout admin={admin}>
+    <PageLayout admin={admin} users={users}>
       <Wrapper>
         <Left>
           <MenuCont>
