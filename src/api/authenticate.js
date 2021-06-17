@@ -1,7 +1,7 @@
 async function authenticate(info) {
   try {
     const res = await fetch(
-      `https://afternoon-hamlet-30447.herokuapp.com/api/${info}`,
+      `https://afternoon-hamlet-30447.herokuapp.com/api/user/${info}`,
       {
         method: "GET",
       }

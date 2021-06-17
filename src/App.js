@@ -1,26 +1,40 @@
-import logo from "./logo.svg";
 import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import LoginView from "./pages/LoginView";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.css";
+import HomeView from "./pages/HomeView";
+import Register from "./components/Register";
+import Login from "./components/login";
+import ChatView from "./pages/ChatView";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <LoginView />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route path="/home">
+            <HomeView />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/admin">
+            <HomeView admin={true} />
+          </Route>
+          <Route path="/chat">
+            <ChatView />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }
 

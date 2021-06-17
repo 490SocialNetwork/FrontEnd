@@ -6,13 +6,12 @@ import getPosts from "../api/getPosts";
 import { Button, Modal, Form } from "react-bootstrap";
 import createPost from "../api/createPost";
 import getUsers from "../api/getUsers";
+import { Redirect } from "react-router";
 
 const HomeView = ({ admin }) => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [shownUsers, setshownUsers] = useState([]);
-
-  const [searchBar, setsearchBar] = useState("");
+  const [viewChat, setViewChat] = useState(false);
 
   const [newPost, setNewPost] = useState("");
   const [showPostModal, setShowPostModal] = useState(false);
@@ -56,11 +55,20 @@ const HomeView = ({ admin }) => {
   }, []);
   return (
     <PageLayout admin={admin} users={users}>
+      {viewChat && <Redirect to="/chat" />}
       <Wrapper>
         <Left>
           <MenuCont>
             <Button size="lg" onClick={() => setShowPostModal(true)}>
               Create Post
+            </Button>
+            <div className="mt-4"></div>
+            <Button
+              size="lg"
+              variant="outline-primary"
+              onClick={() => setViewChat(true)}
+            >
+              Chat
             </Button>
           </MenuCont>
         </Left>

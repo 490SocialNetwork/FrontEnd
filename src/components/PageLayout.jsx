@@ -12,7 +12,9 @@ const PageLayout = (props) => {
       setShownUsers([]);
       return;
     }
-    const tempArr = props.users.filter((info) => info.userid.includes(val));
+    const tempArr = props.users.filter((info) =>
+      info.userid.includes(val.toLowerCase())
+    );
     setShownUsers(tempArr);
   };
   return (

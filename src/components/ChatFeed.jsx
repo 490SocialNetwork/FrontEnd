@@ -7,10 +7,10 @@ const ChatFeed = (props) => {
   //spec. active chats only
   const chat = chats && chats[activeChat];
 
-  const renderReadReceipts = (message, isMyMessage) => {
-    return chat.people.map(
+  const renderReadReceipts = (message, isMyMessage) =>
+    chat.people.map(
       (person, index) =>
-        person.last.read === message.id && (
+        person.last_read === message.id && (
           <div
             key={`read_${index}`}
             className="read-receipt"
@@ -22,15 +22,12 @@ const ChatFeed = (props) => {
           />
         )
     );
-  };
 
   const renderMessages = () => {
-    //fetch messages
     const keys = Object.keys(messages);
 
     return keys.map((key, index) => {
       const message = messages[key];
-      //find the last message
       const lastMessageKey = index === 0 ? null : keys[index - 1];
       const isMyMessage = userName === message.sender.username;
 
@@ -38,10 +35,8 @@ const ChatFeed = (props) => {
         <div key={`msg_${index}`} style={{ width: "100%" }}>
           <div className="message-block">
             {isMyMessage ? (
-              //then render if myMessge
               <MyMessage message={message} />
             ) : (
-              // if not myMessage
               <TheirMessage
                 message={message}
                 lastMessage={messages[lastMessageKey]}
@@ -51,8 +46,8 @@ const ChatFeed = (props) => {
           <div
             className="read-receipts"
             style={{
-              marginRight: isMyMessage ? "15px" : "0px",
-              marginLeft: isMyMessage ? "0px" : "67px",
+              marginRight: isMyMessage ? "18px" : "0px",
+              marginLeft: isMyMessage ? "0px" : "68px",
             }}
           >
             {renderReadReceipts(message, isMyMessage)}
@@ -63,17 +58,16 @@ const ChatFeed = (props) => {
   };
 
   //loading chat
-  if (!chat) return "Loading...";
-  <div />;
+  if (!chat) return <div>Loading ...</div>;
+
   return (
     <div className="chat-feed">
-      <div className="chat-title-c">
-        <div clssName="chat-title">{chat?.title}</div>
-        <div className="chat-sub">
-          {chat.people.map((person) => `${person.person.username}`)}
+      <div className="chat-title-container">
+        <div className="chat-title">{chat?.title}</div>
+        <div className="chat-subtitle">
+          {chat.people.map((person) => ` ${person.person.username}`)}
         </div>
       </div>
-
       {renderMessages()}
       <div style={{ height: "100px" }} />
       <div className="message-form-container">
