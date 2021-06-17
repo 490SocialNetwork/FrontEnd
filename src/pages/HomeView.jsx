@@ -7,6 +7,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import createPost from "../api/createPost";
 import getUsers from "../api/getUsers";
 import { Redirect } from "react-router";
+import Games from "../components/games";
 
 const HomeView = ({ admin }) => {
   const [posts, setPosts] = useState([]);
@@ -77,7 +78,9 @@ const HomeView = ({ admin }) => {
             <UserPosts {...info} index={index} userReply={userReply} />
           ))}
         </Center>
-        <Right></Right>
+        <Right>
+          <Games />
+        </Right>
         <Modal
           aria-labelledby="contained-modal-title-vcenter"
           centered
@@ -128,7 +131,7 @@ const Left = styled.div`
 const Center = styled.div`
   background: white;
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
 `;
 const Right = styled.div`
   background: white;

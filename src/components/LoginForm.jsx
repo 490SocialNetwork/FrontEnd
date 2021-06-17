@@ -26,6 +26,7 @@ function LoginForm({}) {
       if (loginRes.password_hash === password) {
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
+        localStorage.setItem("admin", loginRes.isAdmin);
         setValidLogin(true);
       } else {
         setError("Invalid credentials");

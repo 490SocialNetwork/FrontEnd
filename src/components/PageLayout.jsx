@@ -22,7 +22,9 @@ const PageLayout = (props) => {
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand>BasketBall News</Navbar.Brand>
-          <h4 className="me-auto ">{props.admin ? "Admin" : "User"}</h4>
+          <h4 className="me-auto ">
+            {localStorage.getItem("admin") === "true" ? "Admin" : "User"}
+          </h4>
           <Form className="d-flex">
             <FormControl
               type="search"
