@@ -9,19 +9,7 @@ const LoginView = () => {
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand>BasketBall News</Navbar.Brand>
-          <Nav className="me-auto">
-            <Button
-              className="mr-4"
-              variant="primary"
-              type="submit"
-              href="/register"
-            >
-              Sign Up
-            </Button>
-            <Button variant="outline-secondary" type="submit" href="/login">
-              Login
-            </Button>
-          </Nav>
+          <Nav className="me-auto"></Nav>
         </Container>
       </Navbar>
       <LoginForm />
