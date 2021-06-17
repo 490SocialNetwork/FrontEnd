@@ -28,20 +28,20 @@ const HomeView = ({ admin }) => {
   const handleAddPost = async () => {
     const tempObj = [...posts];
     tempObj.unshift({
-      text: newPost,
-      user: { name: localStorage.getItem("username") },
+      message_txt: newPost,
+      userid: localStorage.getItem("username"),
       replies: [],
     });
     setPosts(tempObj);
     handleHide();
     await createPost({
       message_txt: newPost,
-      userid: "courtneyh",
+      userid: localStorage.getItem("username"),
     });
   };
   const getAllPosts = async () => {
     const allPosts = await getPosts();
-    setPosts(allPosts || []);
+    setPosts(allPosts.reverse() || []);
     console.log(allPosts);
   };
   const getAllUsers = async () => {
