@@ -14,12 +14,21 @@ function LoginForm({}) {
   const [error, setError] = useState("");
   const [validLogin, setValidLogin] = useState(false);
   const handleSubmit = async (e) => {
-    const success = true;
     e.preventDefault();
     if (isCreate) {
-      handleSwitch();
-      //const CreateRes = createUser();
-      setError("Create Account Failed");
+      const tempObj = {
+        userid: username,
+        first_name: firstName,
+        last_name: lastName,
+        password_hash: password,
+      };
+      let CreateRes = await createUser(tempObj);
+      console.log(CreateRes);
+      if (CreateRes.message == "User created successfully") {
+        handleSwitch();
+      } else {
+        setError("Create Account Failed");
+      }
     } else {
       const loginRes = await authenticate(username);
       console.log(loginRes);
