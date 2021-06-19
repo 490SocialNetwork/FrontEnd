@@ -4,7 +4,14 @@ import styled from "styled-components";
 import ReplyCard from "./ReplyCard";
 import getComments from "../api/getComments";
 
-const UserPosts = ({ userid, message_txt, replies, index, userReply }) => {
+const UserPosts = ({
+  userid,
+  message_txt,
+  replies,
+  index,
+  userReply,
+  handleViewReplies,
+}) => {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState("");
   const [allReplies, setAllReplies] = useState([]);
@@ -33,6 +40,7 @@ const UserPosts = ({ userid, message_txt, replies, index, userReply }) => {
       {!isReplying ? (
         <InteractCont>
           <Button onClick={() => setIsReplying(true)}>Reply</Button>
+          <Button onClick={() => handleViewReplies(index)}>View Replies</Button>
         </InteractCont>
       ) : (
         <Form.Group controlId="exampleForm.ControlTextarea1">

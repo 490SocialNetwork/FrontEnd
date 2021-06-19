@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const ReplyCard = ({ user, text }) => {
+const ReplyCard = ({ message_txt, userid }) => {
   return (
     <Wrapper>
-      <UserName>{user.name}</UserName>
-      <Text>{text}</Text>
+      <UserName>{userid}</UserName>
+      <Text>{message_txt}</Text>
     </Wrapper>
   );
 };

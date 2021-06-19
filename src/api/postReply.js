@@ -3,9 +3,7 @@ async function createUser(info) {
   try {
     const res = await fetch(`/api/`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {},
       body: JSON.stringify(info),
     });
     const fullData = await res.json();

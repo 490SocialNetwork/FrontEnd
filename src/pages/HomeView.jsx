@@ -8,6 +8,7 @@ import createPost from "../api/createPost";
 import getUsers from "../api/getUsers";
 import { Redirect } from "react-router";
 import Games from "../components/games";
+import getComments from "../api/getComments";
 
 const HomeView = ({ admin }) => {
   const [posts, setPosts] = useState([]);
@@ -54,6 +55,12 @@ const HomeView = ({ admin }) => {
     getAllPosts();
     getAllUsers();
   }, []);
+  const handleViewReplies = async (index) => {
+    const tempArr = [...posts];
+    const commentRes = await getComments(tempArr[index].postid);
+    tempArr[index].replies = [commentRes];
+    setPosts(tempArr);
+  };
   return (
     <PageLayout admin={admin} users={users}>
       {viewChat && <Redirect to="/chat" />}
@@ -75,7 +82,12 @@ const HomeView = ({ admin }) => {
         </Left>
         <Center>
           {posts.map((info, index) => (
-            <UserPosts {...info} index={index} userReply={userReply} />
+            <UserPosts
+              {...info}
+              index={index}
+              userReply={userReply}
+              handleViewReplies={handleViewReplies}
+            />
           ))}
         </Center>
         <Right>
