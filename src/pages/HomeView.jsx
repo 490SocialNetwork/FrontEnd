@@ -28,6 +28,7 @@ const HomeView = ({ admin }) => {
       postid: posts[index].postid,
       message_txt: reply,
     });
+    if (!tempObj[index].replies) tempObj[index].replies = [];
     tempObj[index].replies.push({
       userid: localStorage.getItem("username"),
       postid: posts[index].postid,
@@ -73,7 +74,7 @@ const HomeView = ({ admin }) => {
   const handleViewReplies = async (index) => {
     const tempArr = [...posts];
     const commentRes = await getComments(tempArr[index].postid);
-    tempArr[index].replies = commentRes;
+    tempArr[index].replies = commentRes === null ? [] : commentRes;
     setPosts(tempArr);
   };
   const handleDelete = async (index) => {
