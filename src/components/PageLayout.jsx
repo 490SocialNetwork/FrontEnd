@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Navbar, Container, Form, FormControl, Button } from "react-bootstrap";
+import { Redirect } from "react-router";
+
 const PageLayout = (props) => {
   const [shownUsers, setShownUsers] = useState([]);
   const [searchBar, setSearchBar] = useState("");
-
+  const [logout, setLogout] = useState(false);
   const handleSearch = (e) => {
     let val = e.target.value;
     setSearchBar(val);
@@ -19,6 +21,8 @@ const PageLayout = (props) => {
   };
   return (
     <Layout>
+      {logout && <Redirect to="/" />}
+
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand>BasketBall News</Navbar.Brand>
@@ -42,6 +46,13 @@ const PageLayout = (props) => {
                 </SearchOption>
               ))}
             </SearchDD>
+            <Button
+              size="lg"
+              variant="outline-primary"
+              onClick={() => setLogout(true)}
+            >
+              Logout
+            </Button>
           </Form>
         </Container>
       </Navbar>

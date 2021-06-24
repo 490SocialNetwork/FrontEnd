@@ -48,21 +48,23 @@ const Games = () => {
                 <Logo />
               </Row>
               <Row>
-                <H1>{data[index]?.api.games[0]?.league}</H1>
-                <H1> {data[index]?.api.games[0]?.seasonStage} </H1>
-                <H1>{data[index]?.api.games[0]?.gameId}</H1>
+                <H1>{data[index]?.api?.games[0]?.league}</H1>
+                <H1> {data[index]?.api?.games[0]?.seasonStage} </H1>
+                <H1>{data[index]?.api?.games[0]?.gameId}</H1>
               </Row>
               <Row>
                 <Logo src={data[index]?.api?.games[0]?.hTeam?.logo} />
-                <H2>{data[index]?.api.games[0]?.hTeam?.fullName}</H2>
+                <H2>{data[index]?.api?.games[0]?.hTeam?.fullName}</H2>
                 <Score>
                   {data[index]?.api?.games[0]?.hTeam?.score?.points}
                 </Score>
               </Row>
               <Row>
                 <Logo src={data[index]?.api?.games[0]?.vTeam?.logo} />
-                <H2>{data[index]?.api.games[0]?.vTeam?.fullName}</H2>
-                <Score>{data[index]?.api.games[0]?.vTeam?.score?.points}</Score>
+                <H2>{data[index]?.api?.games[0]?.vTeam?.fullName}</H2>
+                <Score>
+                  {data[index]?.api?.games[0]?.vTeam?.score?.points}
+                </Score>
               </Row>
               {data[index]?.api?.games[0]?.arena === "" ? (
                 <></>
