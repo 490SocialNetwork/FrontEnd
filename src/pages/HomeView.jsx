@@ -10,6 +10,7 @@ import { Redirect } from "react-router";
 import Games from "../components/games";
 import getComments from "../api/getComments";
 import deletePost from "../api/deletePost";
+import createComment from "../api/createComment";
 
 const HomeView = ({ admin }) => {
   const [posts, setPosts] = useState([]);
@@ -19,9 +20,19 @@ const HomeView = ({ admin }) => {
   const [newPost, setNewPost] = useState("");
   const [showPostModal, setShowPostModal] = useState(false);
   const [isAdmin, setisAdmin] = useState(false);
-  const userReply = (index, info) => {
+
+  const userReply = async (index, reply) => {
     const tempObj = [...posts];
-    tempObj[index].replies.push(info);
+    const Res = await createComment({
+      userid: localStorage.getItem("username"),
+      postid: posts[index].postid,
+      message_txt: reply,
+    });
+    tempObj[index].replies.push({
+      userid: localStorage.getItem("username"),
+      postid: posts[index].postid,
+      message_txt: reply,
+    });
     setPosts(tempObj);
   };
   const handleHide = () => {
@@ -62,7 +73,7 @@ const HomeView = ({ admin }) => {
   const handleViewReplies = async (index) => {
     const tempArr = [...posts];
     const commentRes = await getComments(tempArr[index].postid);
-    tempArr[index].replies = [commentRes];
+    tempArr[index].replies = commentRes;
     setPosts(tempArr);
   };
   const handleDelete = async (index) => {
@@ -110,6 +121,7 @@ const HomeView = ({ admin }) => {
               userReply={userReply}
               handleDelete={handleDelete}
               isAdmin={isAdmin}
+              handleViewReplies={handleViewReplies}
             />
           ))}
         </Center>

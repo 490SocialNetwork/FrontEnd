@@ -7,11 +7,12 @@ import getComments from "../api/getComments";
 const UserPosts = ({
   userid,
   message_txt,
-  replies,
+  replies = [],
   index,
   userReply,
   handleDelete,
   isAdmin,
+  handleViewReplies,
 }) => {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState("");
@@ -21,10 +22,7 @@ const UserPosts = ({
     setReply("");
   };
   const handleReply = () => {
-    userReply(index, {
-      text: reply,
-      user: userid,
-    });
+    userReply(index, reply);
     setIsReplying(false);
     setReply("");
   };
@@ -32,6 +30,7 @@ const UserPosts = ({
     const allUsers = await getComments();
     setAllReplies(allUsers || []);
   };
+
   return (
     <Wrapper>
       <MainCont>
@@ -41,6 +40,7 @@ const UserPosts = ({
       {!isReplying ? (
         <InteractCont>
           <Button onClick={() => setIsReplying(true)}>Reply</Button>
+          <Button onClick={() => handleViewReplies(index)}>View Replies</Button>
           {isAdmin && (
             <Button variant="danger" onClick={() => handleDelete(index)}>
               Delete
@@ -72,9 +72,7 @@ const UserPosts = ({
         </Form.Group>
       )}
       <ReplyCont>
-        {allReplies.map((info) => (
-          <ReplyCard {...info} />
-        ))}
+        {replies && replies.map((info) => <ReplyCard {...info} />)}
       </ReplyCont>
     </Wrapper>
   );

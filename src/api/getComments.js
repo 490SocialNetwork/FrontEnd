@@ -1,8 +1,7 @@
 async function getComments(info) {
   try {
     const res = await fetch(
-      `https://afternoon-hamlet-30447.herokuapp.com/api/comments/${info}
-        `,
+      `https://afternoon-hamlet-30447.herokuapp.com/api/comments/${info}`,
       {
         method: "GET",
       }

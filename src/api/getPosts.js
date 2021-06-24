@@ -9,7 +9,7 @@ async function getPosts() {
     );
     const fullData = await res.json();
     console.log(fullData);
-    return fullData;
+    return fullData || [];
   } catch (err) {
     console.log(err);
   }

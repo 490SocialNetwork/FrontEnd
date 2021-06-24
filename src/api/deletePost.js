@@ -1,14 +1,14 @@
 async function deletePost(id) {
   try {
-    //   const res = await fetch(
-    //     `https://afternoon-hamlet-30447.herokuapp.com/api/posts`,
-    //     {
-    //       method: "GET",
-    //     }
-    //   );
-    //   const fullData = await res.json();
-    console.log(id);
-    //   return fullData;
+    const res = await fetch(
+      `http://afternoon-hamlet-30447.herokuapp.com/api/deletepost/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const fullData = await res.json();
+    console.log(fullData);
+    return fullData;
   } catch (err) {
     console.log(err);
   }
