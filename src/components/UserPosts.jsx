@@ -10,7 +10,8 @@ const UserPosts = ({
   replies,
   index,
   userReply,
-  handleViewReplies,
+  handleDelete,
+  isAdmin,
 }) => {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState("");
@@ -40,7 +41,11 @@ const UserPosts = ({
       {!isReplying ? (
         <InteractCont>
           <Button onClick={() => setIsReplying(true)}>Reply</Button>
-          <Button onClick={() => handleViewReplies(index)}>View Replies</Button>
+          {isAdmin && (
+            <Button variant="danger" onClick={() => handleDelete(index)}>
+              Delete
+            </Button>
+          )}
         </InteractCont>
       ) : (
         <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -97,6 +102,7 @@ const InteractCont = styled.div`
   padding: 14px 0px;
   border-top: 1px solid #ebeef0;
   border-bottom: 1px solid #ebeef0;
+  justify-content: space-between;
 `;
 const UserName = styled.h3`
   font-size: 16px;

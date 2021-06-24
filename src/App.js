@@ -32,6 +32,9 @@ function App() {
           <Route path="/chat">
             <ChatView />
           </Route>
+          <Route path="/createUser">
+            <LoginView Admin />
+          </Route>
         </Switch>
       </Router>
     </>

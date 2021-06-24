@@ -9,15 +9,16 @@ import getUsers from "../api/getUsers";
 import { Redirect } from "react-router";
 import Games from "../components/games";
 import getComments from "../api/getComments";
+import deletePost from "../api/deletePost";
 
 const HomeView = ({ admin }) => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [viewChat, setViewChat] = useState(false);
-
+  const [adminCreate, setAdminCreate] = useState(false);
   const [newPost, setNewPost] = useState("");
   const [showPostModal, setShowPostModal] = useState(false);
-
+  const [isAdmin, setisAdmin] = useState(false);
   const userReply = (index, info) => {
     const tempObj = [...posts];
     tempObj[index].replies.push(info);
@@ -54,6 +55,9 @@ const HomeView = ({ admin }) => {
   useEffect(() => {
     getAllPosts();
     getAllUsers();
+    if (localStorage.getItem("admin") === "true") {
+      setisAdmin(true);
+    }
   }, []);
   const handleViewReplies = async (index) => {
     const tempArr = [...posts];
@@ -61,8 +65,16 @@ const HomeView = ({ admin }) => {
     tempArr[index].replies = [commentRes];
     setPosts(tempArr);
   };
+  const handleDelete = async (index) => {
+    let tempArr = [...posts];
+    const ID = tempArr[index].postid;
+    const deleteRes = await deletePost(ID);
+    tempArr = tempArr.filter((info) => info.postid !== ID);
+    setPosts(tempArr);
+  };
   return (
     <PageLayout admin={admin} users={users}>
+      {adminCreate && <Redirect to="/createUser" />}
       {viewChat && <Redirect to="/chat" />}
       <Wrapper>
         <Left>
@@ -70,7 +82,7 @@ const HomeView = ({ admin }) => {
             <Button size="lg" onClick={() => setShowPostModal(true)}>
               Create Post
             </Button>
-            <div className="mt-4"></div>
+            <div className="mt-4" />
             <Button
               size="lg"
               variant="outline-primary"
@@ -78,6 +90,16 @@ const HomeView = ({ admin }) => {
             >
               Chat
             </Button>
+            <div className="mt-4" />
+            {isAdmin && (
+              <Button
+                size="lg"
+                variant="outline-secondary"
+                onClick={() => setAdminCreate(true)}
+              >
+                Create User
+              </Button>
+            )}
           </MenuCont>
         </Left>
         <Center>
@@ -86,7 +108,8 @@ const HomeView = ({ admin }) => {
               {...info}
               index={index}
               userReply={userReply}
-              handleViewReplies={handleViewReplies}
+              handleDelete={handleDelete}
+              isAdmin={isAdmin}
             />
           ))}
         </Center>

@@ -4,8 +4,8 @@ import createUser from "../api/createUser";
 import authenticate from "../api/authenticate";
 import { Redirect } from "react-router";
 
-function LoginForm({}) {
-  const [isCreate, setIsCreate] = useState(false);
+function LoginForm({ Admin }) {
+  const [isCreate, setIsCreate] = useState(Admin ? true : false);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -105,9 +105,11 @@ function LoginForm({}) {
           Submit
         </Button>
         <p className="mt-2 text-danger">{error}</p>
-        <Button variant="primary" size="sm" onClick={handleSwitch}>
-          {isCreate ? "Login" : "Create account"}
-        </Button>
+        {!Admin && (
+          <Button variant="primary" size="sm" onClick={handleSwitch}>
+            {isCreate ? "Login" : "Create account"}
+          </Button>
+        )}
       </Form>
     </>
   );
